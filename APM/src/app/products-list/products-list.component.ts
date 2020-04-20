@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {IProduct} from './product-Interface';
+import { ThrowStmt } from '@angular/compiler';
 @Component({
   selector: 'app-products-list',
   templateUrl: './products-list.component.html',
@@ -30,16 +31,29 @@ export class ProductsListComponent implements OnInit {
     "starRating": 4.2,
     "imageUrl": "assets/images/garden_cart.png"
   }];
+  filteredProducts: IProduct[];
   showImage: boolean = false;
-  filterText: string;
+  _filterText: string;
+
+  get filterText(): string {
+    return this._filterText;
+  }
+  set filterText(value: string) {
+    this._filterText = value;
+    this.filteredProducts = this._filterText ? this.getFilteredProducts(this._filterText) : this.products;
+  }
   constructor() { }
 
   ngOnInit(): void {
-    console.log("PRODUCTSLIST ngOnInit")
+    this.filteredProducts = this._filterText ? this.getFilteredProducts(this._filterText) : this.products;
   }
 
   toggleImage(): void {
     this.showImage = !this.showImage
+  }
+
+  getFilteredProducts(filterText: string): IProduct[] {
+    return this.products.filter(product => product.productName.toLowerCase().indexOf(filterText) !== -1)
   }
 
 }
