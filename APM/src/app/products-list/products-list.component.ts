@@ -34,6 +34,7 @@ export class ProductsListComponent implements OnInit {
   filteredProducts: IProduct[];
   showImage: boolean = false;
   _filterText: string;
+  currentRatingClicked: string;
 
   get filterText(): string {
     return this._filterText;
@@ -54,6 +55,10 @@ export class ProductsListComponent implements OnInit {
 
   getFilteredProducts(filterText: string): IProduct[] {
     return this.products.filter(product => product.productName.toLowerCase().indexOf(filterText) !== -1)
+  }
+
+  onRatingClicked(value: string) {
+    this.currentRatingClicked = value;
   }
 
 }

@@ -1,6 +1,6 @@
 <div class="card">
   <div class="card-header">
-    {{ pageTitle }}
+    {{ pageTitle }} - {{currentRatingClicked}}
   </div>
   <div class="card-body">
     <div class="row">
@@ -46,7 +46,9 @@
             <td>{{ product.productCode | convertToSpaces: " " }}</td>
             <td>{{ product.releaseDate }}</td>
             <td>{{ product.price | currency: USD }}</td>
-            <td>{{ product.starRating }}</td>
+            <td>
+              <app-star [rating]="product.starRating" (notify)="onRatingClicked($event)"></app-star>
+            </td>
           </tr>
         </tbody>
       </table>
