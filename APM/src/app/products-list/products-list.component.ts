@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-
+import {IProduct} from './product-Interface';
 @Component({
   selector: 'app-products-list',
   templateUrl: './products-list.component.html',
@@ -10,7 +10,7 @@ export class ProductsListComponent implements OnInit {
   imageWidth: number = 50;
   imageHeight: number = 50;
   imageMargin: number = 2;
-  products: any[] = [{
+  products: IProduct[] = [{
     "productId": 1,
     "productName": "Leaf Rake",
     "productCode": "GDN-0011",
@@ -35,9 +35,10 @@ export class ProductsListComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+    console.log("PRODUCTSLIST ngOnInit")
   }
 
-  toggleImage() {
+  toggleImage(): void {
     this.showImage = !this.showImage
   }
 
