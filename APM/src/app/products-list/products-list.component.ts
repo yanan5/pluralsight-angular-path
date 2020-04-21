@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import {IProduct} from './product-Interface';
+import { IProduct } from './product-Interface';
 import { ProductService } from '../service/product/product.service';
+
 
 @Component({
   selector: 'app-products-list',
@@ -8,6 +9,7 @@ import { ProductService } from '../service/product/product.service';
   styleUrls: ['./products-list.component.scss']
 })
 export class ProductsListComponent implements OnInit {
+  // properties
   pageTitle: string = "Product List";
   imageWidth: number = 50;
   imageHeight: number = 50;
@@ -17,7 +19,9 @@ export class ProductsListComponent implements OnInit {
   showImage: boolean = false;
   _filterText: string;
   currentRatingClicked: string;
+  errorMessage: string;
 
+  // getters and setters
   get filterText(): string {
     return this._filterText;
   }
@@ -25,11 +29,16 @@ export class ProductsListComponent implements OnInit {
     this._filterText = value;
     this.filteredProducts = this._filterText ? this.getFilteredProducts(this._filterText) : this.products;
   }
-  constructor(private productService:ProductService) { }
+  constructor(private productService: ProductService) { }
 
   ngOnInit(): void {
-    this.products = this.productService.getProducts();
-    this.filteredProducts = this._filterText ? this.getFilteredProducts(this._filterText) : this.products;
+    this.productService.getProducts().subscribe(
+      products => {
+        this.products = products
+        this.filteredProducts = this._filterText ? this.getFilteredProducts(this._filterText) : this.products;
+      },
+      err => this.errorMessage = err
+    );
   }
 
   toggleImage(): void {
