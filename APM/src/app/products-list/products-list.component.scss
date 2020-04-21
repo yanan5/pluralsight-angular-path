@@ -4,3 +4,11 @@
 thead {
   color: #007bff;
 }
+tbody {
+  tr {
+    cursor: pointer;
+    &:hover{
+      background-color: #d7dee6
+    }
+  }
+}

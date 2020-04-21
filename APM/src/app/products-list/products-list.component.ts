@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { IProduct } from './product-Interface';
 import { ProductService } from '../service/product/product.service';
-
+import { Router } from '@angular/router'
 
 @Component({
   selector: 'app-products-list',
@@ -29,7 +29,7 @@ export class ProductsListComponent implements OnInit {
     this._filterText = value;
     this.filteredProducts = this._filterText ? this.getFilteredProducts(this._filterText) : this.products;
   }
-  constructor(private productService: ProductService) { }
+  constructor(private productService: ProductService, private route: Router) { }
 
   ngOnInit(): void {
     this.productService.getProducts().subscribe(
@@ -53,4 +53,7 @@ export class ProductsListComponent implements OnInit {
     this.currentRatingClicked = value;
   }
 
+  goToDetails(id:string) {
+    this.route.navigateByUrl(`/products/${id}`)
+  }
 }
