@@ -13,66 +13,118 @@
       [class.field-error]="form.submitted && name.invalid"
       (blur)="onBlur(name)"
     />
-    <div [hidden]="!form.submitted || name.valid" class="alert alert-danger">Enter a name</div>
+    <div [hidden]="!form.submitted || name.valid" class="alert alert-danger">
+      Enter a name
+    </div>
   </div>
   <div class="form-group">
     <div class="form-check">
-      <input
-        class="form-check-input"
-        type="checkbox"
-        value="Another checkbox"
-        name="emailOffers"
-        [(ngModel)]="userSettings.emailOffers"
-        id="defaultCheck2"
-      />
       <label class="form-check-label" for="defaultCheck2">
         Email Special Offers
       </label>
+      <button
+        type="button"
+        class="btn btn-primary"
+        name="emailOffers"
+        value="Email Offer"
+        id="defaultCheck2"
+        [(ngModel)]="userSettings.emailOffers"
+        btnCheckbox
+        btnCheckboxTrue="On"
+        btnCheckboxFalse="Off"
+      >
+        {{ userSettings.emailOffers }}
+      </button>
     </div>
   </div>
   <div class="form-group">
     <div class="form-check">
-      <input
-        class="form-check-input"
-        type="radio"
-        name="interfaceType"
-        id="exampleRadios1"
-        value="Light"
-        [(ngModel)]="userSettings.interfaceType"
-        checked
-      />
-      <label class="form-check-label" for="exampleRadios1">
-        Light
-      </label>
-    </div>
-    <div class="form-check">
-      <input
-        class="form-check-input"
-        type="radio"
-        name="interfaceType"
-        id="exampleRadios2"
-        value="Dark"
-        [(ngModel)]="userSettings.interfaceType"
-      />
-      <label class="form-check-label" for="exampleRadios2">
-        Dark
-      </label>
+      <div class="btn-group">
+        <label
+          class="btn btn-primary"
+          [(ngModel)]="userSettings.interfaceType"
+          btnRadio="Light"
+          name="interfaceType"
+          role="button"
+          >Light</label
+        >
+        <label
+          class="btn btn-primary"
+          [(ngModel)]="userSettings.interfaceType"
+          btnRadio="Dark"
+          name="interfaceType"
+          role="button"
+          >Medium</label
+        >
+        <label
+          class="btn btn-primary"
+          [(ngModel)]="userSettings.interfaceType"
+          btnRadio="Medium"
+          name="interfaceType"
+          role="button"
+          >Dark</label
+        >
+      </div>
     </div>
   </div>
   <div class="form-group">
     <label for="subscriptionType">Example select</label>
-    <select class="form-control" id="subscriptionType" name="subscriptionType" [(ngModel)]="userSettings.subscriptionType">
-      <option *ngFor="let type of subscriptionTypes | async">{{type}}</option>
+    <select
+      class="form-control"
+      id="subscriptionType"
+      name="subscriptionType"
+      [(ngModel)]="userSettings.subscriptionType"
+    >
+      <option *ngFor="let type of subscriptionTypes | async">{{ type }}</option>
     </select>
   </div>
   <div class="form-group">
     <label for="Notes">Notes</label>
-    <textarea class="form-control" id="Notes" rows="3" name="notes" [(ngModel)]="userSettings.notes"></textarea>
+    <textarea
+      class="form-control"
+      id="Notes"
+      rows="3"
+      name="notes"
+      [(ngModel)]="userSettings.notes"
+    ></textarea>
   </div>
-  <div [hidden]="!postError" class="alert alert-danger">{{postErrorMessage}}</div>
+  <div class="form-group">
+    <input
+      type="text"
+      placeholder="Datepicker"
+      class="form-control"
+      [(ngModel)]="startDate"
+      name="startDate"
+      id="startDate"
+      bsDaterangepicker
+    />
+    Date : {{ startDate }}
+  </div>
+  <div class="form-group">
+    <timepicker [(ngModel)]="mytime" name="mytime"> </timepicker>
+    Time {{ mytime }}
+  </div>
+
+  <div class="form-group">
+    <rating
+      [(ngModel)]="rate"
+      [max]="max"
+      (onHover)="hoveringOver($event)"
+      (onLeave)="resetStar()"
+      [titles]="['one', 'two', 'three']"
+      name="rate"
+    ></rating>
+    <div class="card">
+      <pre
+        class="card-block card-header"
+        style="margin: 15px 0;"
+      >Rate: <b>{{rate}}</b>;  Hovering over: <b>{{overStar || "none"}}</b></pre>
+    </div>
+  </div>
+  <div [hidden]="!postError" class="alert alert-danger">
+    {{ postErrorMessage }}
+  </div>
   <button type="submit" class="btn btn-primary">Submit</button>
 </form>
-<pre>originalUserSettings{{originalUserSettings | json}}</pre>
-<pre>userSettings{{userSettings | json}}</pre>
-
-
+<pre>originalUserSettings{{ originalUserSettings | json }}</pre>
+<pre>userSettings{{ userSettings | json }}</pre>

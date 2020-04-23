@@ -1,6 +1,6 @@
 export interface IUserSettings {
   name: string,
-  emailOffers: boolean,
+  emailOffers: string,
   interfaceType: string,
   subscriptionType: string,
   notes: string

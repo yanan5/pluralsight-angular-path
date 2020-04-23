@@ -14,7 +14,7 @@ export class UserSettingFormComponent implements OnInit {
 
   originalUserSettings: IUserSettings = {
     name: null,
-    emailOffers: null,
+    emailOffers: "Off",
     interfaceType: null,
     subscriptionType: null,
     notes: null
@@ -23,6 +23,13 @@ export class UserSettingFormComponent implements OnInit {
   postError: boolean;
   postErrorMessage: any;
   subscriptionTypes: Observable<Array<String>>;
+  startDate: Date;
+  mytime: any;
+  max = 10;
+  rate = 7;
+  overStar: number | undefined;
+  percent: number;
+
 
   constructor(
     private dataService: DataService) { }
@@ -52,5 +59,15 @@ export class UserSettingFormComponent implements OnInit {
     console.log("error", error);
     this.postError = true;
     this.postErrorMessage = error.message;
+  }
+
+
+  hoveringOver(value: number): void {
+    this.overStar = value;
+    this.percent = (value / this.max) * 100;
+  }
+
+  resetStar(): void {
+    this.overStar = void 0;
   }
 }
