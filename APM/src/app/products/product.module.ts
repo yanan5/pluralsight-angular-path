@@ -13,7 +13,8 @@ import { ProductDetailsComponent } from './product-details/product-details.compo
   imports: [
     ProductRoutingModule,
     SharedModule
-  ]
+  ],
+  exports: [SharedModule]
 })
 export class ProductModule { }
 
