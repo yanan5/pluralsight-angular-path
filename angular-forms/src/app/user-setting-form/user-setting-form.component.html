@@ -1,4 +1,4 @@
-<form #form="ngForm" ngNativeValidate>
+<form #form="ngForm" (ngSubmit)="onSubmit(form)">
   <div class="form-group">
     <label for="name">Name</label>
     <input
@@ -10,15 +10,11 @@
       [(ngModel)]="userSettings.name"
       required
       #name="ngModel"
+      [class.field-error]="form.submitted && name.invalid"
+      (blur)="onBlur(name)"
     />
-    <div [hidden]="name.valid || name.untouched" class="alert alert-danger">Enter a name</div>
+    <div [hidden]="!form.submitted || name.valid" class="alert alert-danger">Enter a name</div>
   </div>
-  <pre>touched - {{name.touched}}</pre>
-  <pre>untouched - {{name.untouched}}</pre>
-  <pre>dirty - {{name.dirty}}</pre>
-  <pre>pristine - {{name.pristine}}</pre>
-  <pre>valid - {{name.valid}}</pre>
-  <pre>invalid - {{name.invalid}}</pre>
   <div class="form-group">
     <div class="form-check">
       <input
