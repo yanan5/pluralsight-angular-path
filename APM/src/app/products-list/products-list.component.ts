@@ -49,7 +49,7 @@ export class ProductsListComponent implements OnInit {
     return this.products.filter(product => product.productName.toLowerCase().indexOf(filterText) !== -1)
   }
 
-  onRatingClicked( value: string) {
+  onRatingClicked(value: string) {
     this.currentRatingClicked = value;
   }
 

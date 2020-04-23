@@ -15,8 +15,7 @@ export class StarComponent implements OnChanges {
     this.starWidth = this.rating * 75 / 5;
   }
 
-  onClick(event: any) {
-    event.stopPropagation();
+  onClick() {
     this.notify.emit(this.rating + '')
   }
 
