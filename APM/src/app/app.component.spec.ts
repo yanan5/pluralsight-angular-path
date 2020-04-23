@@ -20,16 +20,16 @@ describe('AppComponent', () => {
     expect(app).toBeTruthy();
   });
 
-  it(`should have as title 'APM'`, () => {
+  it(`should have as title 'Acme Product Management'`, () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
-    expect(app.title).toEqual('APM');
+    expect(app.title).toEqual('Acme Product Management');
   });
 
   it('should render title', () => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
     const compiled = fixture.nativeElement;
-    expect(compiled.querySelector('.content span').textContent).toContain('APM app is running!');
+    expect(compiled.querySelector('.nav-pills a').textContent).toContain('Home');
   });
 });
