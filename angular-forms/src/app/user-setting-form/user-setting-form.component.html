@@ -1,0 +1,75 @@
+<form #form="ngForm">
+  <div class="form-group">
+    <label for="name">Name</label>
+    <input
+      type="text"
+      class="form-control"
+      id="name"
+      name="name"
+      aria-describedby="text"
+      [(ngModel)]="userSettings.name"
+    />
+  </div>
+  <div class="form-group">
+    <div class="form-check">
+      <input
+        class="form-check-input"
+        type="checkbox"
+        value="Another checkbox"
+        name="emailOffers"
+        [(ngModel)]="userSettings.emailOffers"
+        id="defaultCheck2"
+      />
+      <label class="form-check-label" for="defaultCheck2">
+        Email Special Offers
+      </label>
+    </div>
+  </div>
+  <div class="form-group">
+    <div class="form-check">
+      <input
+        class="form-check-input"
+        type="radio"
+        name="interfaceType"
+        id="exampleRadios1"
+        value="Light"
+        [(ngModel)]="userSettings.interfaceType"
+        checked
+      />
+      <label class="form-check-label" for="exampleRadios1">
+        Light
+      </label>
+    </div>
+    <div class="form-check">
+      <input
+        class="form-check-input"
+        type="radio"
+        name="interfaceType"
+        id="exampleRadios2"
+        value="Dark"
+        [(ngModel)]="userSettings.interfaceType"
+      />
+      <label class="form-check-label" for="exampleRadios2">
+        Dark
+      </label>
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="subscriptionType">Example select</label>
+    <select class="form-control" id="subscriptionType" name="subscriptionType" [(ngModel)]="userSettings.subscriptionType">
+      <option>Monthly</option>
+      <option>Annual</option>
+      <option>Lifetime</option>
+    </select>
+  </div>
+  <div class="form-group">
+    <label for="Notes">Notes</label>
+    <textarea class="form-control" id="Notes" rows="3" name="notes" [(ngModel)]="userSettings.notes"></textarea>
+  </div>
+  <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+
+<pre>originalUserSettings{{originalUserSettings | json}}</pre>
+<pre>userSettings{{userSettings | json}}</pre>
+
+
