@@ -10,6 +10,14 @@ const ratingRage = (min: number, max: number): ValidatorFn =>
     return null;
   }
 
+const emailMatcher = (control: AbstractControl): { [key: string]: any } | null => {
+  const email = control.get('email');
+  const confirmEmail = control.get('confirmEmail');
+
+  if (email.value.trim() === confirmEmail.value.trim())
+    return null;
+  return { 'match': true }
+}
 @Component({
   selector: 'app-sign-up',
   templateUrl: './sign-up.component.html',
@@ -23,7 +31,10 @@ export class SignUpComponent implements OnInit {
     this.signUpForm = this.fb.group({
       firstName: ['', [Validators.required, Validators.minLength(3)]],
       lastName: ['', [Validators.required, Validators.minLength(3)]],
-      email: ['', [Validators.required]],
+      emailGroup: this.fb.group({
+        email: ['', [Validators.required, Validators.email]],
+        confirmEmail: ['', [Validators.required]]
+      }, { validators: emailMatcher }),
       phone: '',
       rating: [null, ratingRage(2, 7)],
       notificationType: 'Email',

@@ -3,7 +3,7 @@
     <div class="p-3 bg-light text-dark">Sign Up! - Reactive</div>
   </div>
   <div class="card-body">
-    <form [formGroup]="signUpForm"  (ngSubmit)="onSubmit()">
+    <form [formGroup]="signUpForm" (ngSubmit)="onSubmit()">
       <div class="form-group row">
         <label for="FirstName" class="col-sm-3 col-form-label"
           >First Name</label
@@ -65,32 +65,56 @@
           </div>
         </div>
       </div>
-      <div class="form-group row">
-        <label for="email" class="col-sm-3 col-form-label">Email</label>
-        <div class="col-sm-7">
-          <input
-            type="email"
-            placeholder="Email (required)"
-            formControlName="email"
-            [ngClass]="{
-              'form-control': true,
-              'is-invalid':
-                signUpForm.controls.email.invalid &&
-                signUpForm.controls.email.touched
-            }"
-            id="email"
-          />
-          <div
-            [hidden]="
-              signUpForm.controls.email.valid &&
-              signUpForm.controls.email.untouched
-            "
-            class="invalid-feedback"
-          >
-            Please Enter Email.
+      <ng-container formGroupName="emailGroup">
+        <div class="form-group row">
+          <label for="email" class="col-sm-3 col-form-label">Email</label>
+          <div class="col-sm-7">
+            <input
+              type="email"
+              placeholder="Email (required)"
+              formControlName="email"
+              [ngClass]="{
+                'form-control': true,
+                'is-invalid':
+                  signUpForm.get('emailGroup.email').invalid &&
+                  signUpForm.get('emailGroup.email').touched
+              }"
+              id="email"
+            />
+            <div
+              [hidden]="
+                signUpForm.get('emailGroup.email').valid &&
+                signUpForm.get('emailGroup.email').untouched
+              "
+              class="invalid-feedback"
+            >
+              Please Enter Email.
+            </div>
           </div>
         </div>
-      </div>
+        <div class="form-group row">
+          <label for="Confirm Email" class="col-sm-3 col-form-label"
+            >Confirm Email</label
+          >
+          <div class="col-sm-7">
+            <input
+              type="email"
+              placeholder="Confirm Email (required)"
+              formControlName="confirmEmail"
+              [ngClass]="{
+                'form-control': true,
+                'is-invalid': signUpForm.get('emailGroup').errors?.match
+              }"
+              id="Confirm Email"
+            />
+            <div class="invalid-feedback">
+              <span *ngIf="signUpForm.get('emailGroup').errors?.match"
+                >Emails don't match</span
+              >
+            </div>
+          </div>
+        </div>
+      </ng-container>
       <div class="form-group row">
         <label for="phone" class="col-sm-3 col-form-label">Phone</label>
         <div class="col-sm-7">
@@ -118,7 +142,9 @@
         </div>
       </div>
       <div class="form-group row">
-        <label for="notification" class="col-sm-3 col-form-label">Notify By</label>
+        <label for="notification" class="col-sm-3 col-form-label"
+          >Notify By</label
+        >
         <div class="col-sm-7">
           <div class="form-check form-check-inline">
             <input
@@ -161,11 +187,11 @@
             id="rating"
           />
           <div class="invalid-feedback">
-          <span *ngIf="signUpForm.get('rating').errors?.range">
-            Please rate your exp from 1 to 5.
-          </span>
+            <span *ngIf="signUpForm.get('rating').errors?.range">
+              Please rate your exp from 1 to 5.
+            </span>
+          </div>
         </div>
-      </div>
       </div>
       <div class="form-group row">
         <div class="col-sm-12">
