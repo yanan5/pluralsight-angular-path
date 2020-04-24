@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { LoggerService } from 'my-lib';
 
 @Component({
   selector: 'app-root',
@@ -7,8 +6,5 @@ import { LoggerService } from 'my-lib';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'routing';
-  constructor(logger: LoggerService) {
-    logger.log('hello  angular')
-  }
+  title = 'home';
 }
