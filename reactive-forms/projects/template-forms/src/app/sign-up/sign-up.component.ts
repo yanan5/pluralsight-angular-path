@@ -8,7 +8,7 @@ import { NgForm } from '@angular/forms';
   styleUrls: ['./sign-up.component.scss']
 })
 export class SignUpComponent implements OnInit {
-  singUpForm:ISignUp = {
+  singUpForm: ISignUp = {
     firstName: '',
     lastName: '',
     email: '',
@@ -27,10 +27,10 @@ export class SignUpComponent implements OnInit {
   }
 
   onSubmit(form: NgForm) {
-    if(form.valid) {
-      console.log(form)
+    if (form.valid) {
+      console.log(form);
     }
-    console.log(form)
+    console.log(form);
   }
 
 }
