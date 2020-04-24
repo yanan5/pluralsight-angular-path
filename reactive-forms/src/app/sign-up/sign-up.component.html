@@ -1,9 +1,9 @@
 <div class="card shadow-lg bg-white rounded mt-5">
   <div class="card-title mb-0 border-top-0 border-right-0 border-left-0 border">
-    <div class="p-3 bg-light text-dark">Sign Up! - Template</div>
+    <div class="p-3 bg-light text-dark">Sign Up! - Reactive</div>
   </div>
   <div class="card-body">
-    <form #signUp="ngForm" novalidate (ngSubmit)="onSubmit(signUp)">
+    <form [formGroup]="signUpForm"  (ngSubmit)="onSubmit()">
       <div class="form-group row">
         <label for="FirstName" class="col-sm-3 col-form-label"
           >First Name</label
@@ -11,26 +11,28 @@
         <div class="col-sm-7">
           <input
             type="text"
-            name="firstName"
             placeholder="First Name (required)"
-            #firstName="ngModel"
-            [(ngModel)]="singUpForm.firstName"
+            formControlName="firstName"
+            class="form-control"
             [ngClass]="{
               'form-control': true,
-              'is-invalid': firstName.invalid && firstName.touched
+              'is-invalid':
+                signUpForm.controls.firstName.invalid &&
+                signUpForm.controls.firstName.touched
             }"
             id="FirstName"
-            required
-            minlength="3"
           />
           <div
-            [hidden]="firstName.valid && firstName.untouched"
+            [hidden]="
+              signUpForm.controls.firstName.valid &&
+              signUpForm.controls.firstName.untouched
+            "
             class="invalid-feedback"
           >
-            <span *ngIf="firstName.errors?.required">
+            <span *ngIf="signUpForm.controls.firstName.errors?.required">
               Please Enter First Name.
             </span>
-            <span *ngIf="firstName.errors?.minlength">
+            <span *ngIf="signUpForm.controls.firstName.errors?.minlength">
               First Name must be longer than 3 characters.
             </span>
           </div>
@@ -42,23 +44,22 @@
         <div class="col-sm-7">
           <input
             type="text"
-            name="lastName"
             placeholder="Last Name (required)"
-            #lastName="ngModel"
-            [(ngModel)]="singUpForm.lastName"
+            formControlName="lastName"
             [ngClass]="{
               'form-control': true,
-              'is-invalid': lastName.invalid && lastName.touched
+              'is-invalid':
+                signUpForm.controls.lastName.invalid &&
+                signUpForm.controls.lastName.touched
             }"
             id="LastName"
-            required
-            minlength="3"
           />
           <div
-            [hidden]="lastName.valid && lastName.untouched"
+            [hidden]="
+              signUpForm.controls.lastName.valid &&
+              signUpForm.controls.lastName.untouched
+            "
             class="invalid-feedback"
-            required
-            minlength="3"
           >
             Please Enter Last Name.
           </div>
@@ -69,24 +70,102 @@
         <div class="col-sm-7">
           <input
             type="email"
-            name="email"
             placeholder="Email (required)"
-            #email="ngModel"
-            [(ngModel)]="singUpForm.email"
+            formControlName="email"
             [ngClass]="{
               'form-control': true,
-              'is-invalid': email.invalid && email.touched
+              'is-invalid':
+                signUpForm.controls.email.invalid &&
+                signUpForm.controls.email.touched
             }"
             id="email"
-            required
           />
           <div
-            [hidden]="email.valid && email.untouched"
+            [hidden]="
+              signUpForm.controls.email.valid &&
+              signUpForm.controls.email.untouched
+            "
             class="invalid-feedback"
           >
             Please Enter Email.
           </div>
         </div>
+      </div>
+      <div class="form-group row">
+        <label for="phone" class="col-sm-3 col-form-label">Phone</label>
+        <div class="col-sm-7">
+          <input
+            type="phone"
+            placeholder="Phone"
+            formControlName="phone"
+            [ngClass]="{
+              'form-control': true,
+              'is-invalid':
+                signUpForm.controls.phone.invalid &&
+                signUpForm.controls.phone.touched
+            }"
+            id="phone"
+          />
+          <div
+            [hidden]="
+              signUpForm.controls.phone.valid &&
+              signUpForm.controls.phone.untouched
+            "
+            class="invalid-feedback"
+          >
+            Please Enter phone.
+          </div>
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="notification" class="col-sm-3 col-form-label">Notify By</label>
+        <div class="col-sm-7">
+          <div class="form-check form-check-inline">
+            <input
+              class="form-check-input"
+              type="radio"
+              id="Email"
+              value="Email"
+              formControlName="notificationType"
+            />
+            <label class="form-check-label" for="Email">
+              Email
+            </label>
+          </div>
+          <div class="form-check form-check-inline">
+            <input
+              class="form-check-input"
+              type="radio"
+              id="Phone"
+              value="Phone"
+              formControlName="notificationType"
+            />
+            <label class="form-check-label" for="Phone">
+              Phone
+            </label>
+          </div>
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="rating" class="col-sm-3 col-form-label">Rating</label>
+        <div class="col-sm-7">
+          <input
+            type="number"
+            formControlName="rating"
+            [ngClass]="{
+              'form-control': true,
+              'is-invalid':
+                signUpForm.get('rating').invalid &&
+                signUpForm.get('rating').touched
+            }"
+            id="rating"
+          />
+          <div class="invalid-feedback">
+          <span *ngIf="signUpForm.get('rating').errors?.range">
+            Please rate your exp from 1 to 5.
+          </span>
+        </div>
+      </div>
       </div>
       <div class="form-group row">
         <div class="col-sm-12">
@@ -95,9 +174,7 @@
               class="form-check-input"
               type="checkbox"
               id="catalog"
-              name="catalog"
-              #catalog="ngModel"
-              [(ngModel)]="singUpForm.catalog"
+              formControlName="catalog"
             />
             <label class="form-check-label" for="catalog">
               Send me your catalog
@@ -106,7 +183,7 @@
         </div>
       </div>
 
-      <div [hidden]="!singUpForm.catalog" class="row">
+      <div [hidden]="!signUpForm.controls.catalog.value" class="row">
         <fieldset class="form-group col-sm-12">
           <div class="row">
             <legend class="col-form-label col-sm-3 pt-0">Address Type</legend>
@@ -115,11 +192,9 @@
                 <input
                   class="form-check-input"
                   type="radio"
-                  name="addressType"
                   id="Home"
                   value="Home"
-                  #address="ngModel"
-                  [(ngModel)]="singUpForm.addressType"
+                  formControlName="addressType"
                 />
                 <label class="form-check-label" for="Home">
                   Home
@@ -129,11 +204,9 @@
                 <input
                   class="form-check-input"
                   type="radio"
-                  name="addressType"
                   id="Work"
                   value="Work"
-                  #address="ngModel"
-                  [(ngModel)]="singUpForm.addressType"
+                  formControlName="addressType"
                 />
                 <label class="form-check-label" for="Work">
                   Work
@@ -143,11 +216,9 @@
                 <input
                   class="form-check-input"
                   type="radio"
-                  name="addressType"
                   id="Other"
                   value="Other"
-                  #address="ngModel"
-                  [(ngModel)]="singUpForm.addressType"
+                  formControlName="addressType"
                 />
                 <label class="form-check-label" for="Other">
                   Other
@@ -164,24 +235,11 @@
             <div class="col-sm-7">
               <input
                 type="text"
-                name="streetAdd1"
                 placeholder="Street Address"
-                #streetAdd1="ngModel"
-                [(ngModel)]="singUpForm.streetAddressOne"
-                [ngClass]="{
-                  'form-control': true,
-                  'is-invalid': streetAdd1.invalid && streetAdd1.touched
-                }"
+                formControlName="addressOne"
+                class="form-control"
                 id="streetAdd1"
-                required
-                minlength="3"
               />
-              <div
-                [hidden]="firstName.valid && firstName.untouched"
-                class="invalid-feedback"
-              >
-                Please Enter Address One
-              </div>
             </div>
           </div>
         </div>
@@ -194,10 +252,8 @@
             <div class="col-sm-7">
               <input
                 type="text"
-                name="streetAdd2"
                 placeholder="Street address (second line)"
-                #streetAdd2="ngModel"
-                [(ngModel)]="singUpForm.streetAddressTwo"
+                formControlName="addressTwo"
                 class="form-control"
                 id="streetAdd2"
               />
@@ -212,43 +268,25 @@
                 <div class="col">
                   <input
                     type="text"
-                    name="city"
                     placeholder="City"
-                    #city="ngModel"
-                    [(ngModel)]="singUpForm.city"
-                    [ngClass]="{
-                      'form-control': true,
-                      'is-invalid': city.invalid && city.touched
-                    }"
-                    required
+                    formControlName="city"
+                    class="form-control"
                   />
                 </div>
                 <div class="col">
                   <input
                     type="text"
-                    name="state"
                     placeholder="State"
-                    #state="ngModel"
-                    [(ngModel)]="singUpForm.state"
-                    [ngClass]="{
-                      'form-control': true,
-                      'is-invalid': state.invalid && state.touched
-                    }"
-                    required
+                    formControlName="state"
+                    class="form-control"
                   />
                 </div>
                 <div class="col">
                   <input
                     type="text"
-                    name="zip"
                     placeholder="zip"
-                    #zip="ngModel"
-                    [(ngModel)]="singUpForm.zip"
-                    [ngClass]="{
-                      'form-control': true,
-                      'is-invalid': zip.invalid && zip.touched
-                    }"
-                    required
+                    formControlName="zip"
+                    class="form-control"
                   />
                 </div>
               </div>
@@ -262,7 +300,7 @@
           <button
             type="submit"
             class="btn btn-primary"
-            [disabled]="signUp.invalid"
+            [disabled]="signUpForm.invalid"
           >
             Sign Up
           </button>
@@ -271,16 +309,17 @@
     </form>
   </div>
 </div>
+
 <div class="row">
   <div class="col">
-    <p>Pristine {{ signUp.pristine }}</p>
-    <p>dirty {{ signUp.dirty }}</p>
-    <p>touched {{ signUp.touched }}</p>
-    <p>untouched {{ signUp.untouched }}</p>
-    <p>Valid {{ signUp.valid }}</p>
-    <p>invalid {{ signUp.invalid }}</p>
+    <p>Pristine {{ signUpForm.pristine }}</p>
+    <p>dirty {{ signUpForm.dirty }}</p>
+    <p>touched {{ signUpForm.touched }}</p>
+    <p>untouched {{ signUpForm.untouched }}</p>
+    <p>Valid {{ signUpForm.valid }}</p>
+    <p>invalid {{ signUpForm.invalid }}</p>
   </div>
   <div class="col">
-    <pre>  {{ signUp.value | json }}</pre>
+    <pre>  {{ signUpForm.value | json }}</pre>
   </div>
 </div>
