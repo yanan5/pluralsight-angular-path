@@ -5,16 +5,20 @@ import { AppComponent } from './app.component';
 import { OrdersComponent } from './orders/orders.component';
 import { Orders2Component } from './orders2/orders2.component';
 import { SearchBoxDirective } from './search-box.directive';
+import { MyDirDirective } from './shared/my-dir.directive';
+import { LoginModule } from './login/login.module';
 
 @NgModule({
   declarations: [
     AppComponent,
     OrdersComponent,
     Orders2Component,
-    SearchBoxDirective
+    SearchBoxDirective,
+    MyDirDirective
   ],
   imports: [
-    BrowserModule
+    BrowserModule,
+    LoginModule
   ],
   providers: [],
   bootstrap: [AppComponent]
