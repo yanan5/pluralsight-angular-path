@@ -1,0 +1,276 @@
+<div class="card shadow-lg bg-white rounded mt-5">
+  <div class="card-title mb-0 border-top-0 border-right-0 border-left-0 border">
+    <div class="p-3 bg-light text-dark">Sign Up!</div>
+  </div>
+  <div class="card-body">
+    <form #signUp="ngForm" novalidate (ngSubmit)="onSubmit(signUp)">
+      <div class="form-group row">
+        <label for="FirstName" class="col-sm-3 col-form-label"
+          >First Name</label
+        >
+        <div class="col-sm-7">
+          <input
+            type="text"
+            name="firstName"
+            placeholder="First Name (required)"
+            #firstName="ngModel"
+            [(ngModel)]="singUpForm.firstName"
+            [ngClass]="{
+              'form-control': true,
+              'is-invalid': firstName.invalid && firstName.touched
+            }"
+            id="FirstName"
+            required
+            minlength="3"
+          />
+          <div
+            [hidden]="firstName.valid && firstName.untouched"
+            class="invalid-feedback"
+          >
+            <span *ngIf="firstName.errors?.required">
+              Please Enter First Name.
+            </span>
+            <span *ngIf="firstName.errors?.minlength">
+              First Name must be longer than 3 characters.
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label for="LastName" class="col-sm-3 col-form-label">Last Name</label>
+        <div class="col-sm-7">
+          <input
+            type="text"
+            name="lastName"
+            placeholder="Last Name (required)"
+            #lastName="ngModel"
+            [(ngModel)]="singUpForm.lastName"
+            [ngClass]="{
+              'form-control': true,
+              'is-invalid': lastName.invalid && lastName.touched
+            }"
+            id="LastName"
+            required
+            minlength="3"
+          />
+          <div
+            [hidden]="lastName.valid && lastName.untouched"
+            class="invalid-feedback"
+            required
+            minlength="3"
+          >
+            Please Enter Last Name.
+          </div>
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="email" class="col-sm-3 col-form-label">Email</label>
+        <div class="col-sm-7">
+          <input
+            type="email"
+            name="email"
+            placeholder="Email (required)"
+            #email="ngModel"
+            [(ngModel)]="singUpForm.email"
+            [ngClass]="{
+              'form-control': true,
+              'is-invalid': email.invalid && email.touched
+            }"
+            id="email"
+            required
+          />
+          <div
+            [hidden]="email.valid && email.untouched"
+            class="invalid-feedback"
+          >
+            Please Enter Email.
+          </div>
+        </div>
+      </div>
+      <div class="form-group row">
+        <div class="col-sm-12">
+          <div class="form-check">
+            <input
+              class="form-check-input"
+              type="checkbox"
+              id="catalog"
+              name="catalog"
+              #catalog="ngModel"
+              [(ngModel)]="singUpForm.catalog"
+            />
+            <label class="form-check-label" for="catalog">
+              Send me your catalog
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <div [hidden]="!singUpForm.catalog" class="row">
+        <fieldset class="form-group col-sm-12">
+          <div class="row">
+            <legend class="col-form-label col-sm-3 pt-0">Address Type</legend>
+            <div class="col-sm-7">
+              <div class="form-check form-check-inline">
+                <input
+                  class="form-check-input"
+                  type="radio"
+                  name="addressType"
+                  id="Home"
+                  value="Home"
+                  #address="ngModel"
+                  [(ngModel)]="singUpForm.addressType"
+                />
+                <label class="form-check-label" for="Home">
+                  Home
+                </label>
+              </div>
+              <div class="form-check form-check-inline">
+                <input
+                  class="form-check-input"
+                  type="radio"
+                  name="addressType"
+                  id="Work"
+                  value="Work"
+                  #address="ngModel"
+                  [(ngModel)]="singUpForm.addressType"
+                />
+                <label class="form-check-label" for="Work">
+                  Work
+                </label>
+              </div>
+              <div class="form-check form-check-inline">
+                <input
+                  class="form-check-input"
+                  type="radio"
+                  name="addressType"
+                  id="Other"
+                  value="Other"
+                  #address="ngModel"
+                  [(ngModel)]="singUpForm.addressType"
+                />
+                <label class="form-check-label" for="Other">
+                  Other
+                </label>
+              </div>
+            </div>
+          </div>
+        </fieldset>
+        <div class="form-group col-sm-12">
+          <div class="row">
+            <label for="streetAdd1" class="col-sm-3 col-form-label"
+              >Street Address 1</label
+            >
+            <div class="col-sm-7">
+              <input
+                type="text"
+                name="streetAdd1"
+                placeholder="Street Address"
+                #streetAdd1="ngModel"
+                [(ngModel)]="singUpForm.streetAddressOne"
+                [ngClass]="{
+                  'form-control': true,
+                  'is-invalid': streetAdd1.invalid && streetAdd1.touched
+                }"
+                id="streetAdd1"
+                required
+                minlength="3"
+              />
+              <div
+                [hidden]="firstName.valid && firstName.untouched"
+                class="invalid-feedback"
+              >
+                Please Enter Address One
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group col-sm-12">
+          <div class="row">
+            <label for="streetAdd2" class="col-sm-3 col-form-label"
+              >Street Address 2</label
+            >
+            <div class="col-sm-7">
+              <input
+                type="text"
+                name="streetAdd2"
+                placeholder="Street address (second line)"
+                #streetAdd2="ngModel"
+                [(ngModel)]="singUpForm.streetAddressTwo"
+                class="form-control"
+                id="streetAdd2"
+              />
+            </div>
+          </div>
+        </div>
+        <div class="form-group col-sm-12">
+          <div class="row">
+            <label class="col-sm-3 col-form-label">City, State, Zip Code</label>
+            <div class="col-sm-7">
+              <div class="form-row">
+                <div class="col">
+                  <input
+                    type="text"
+                    name="city"
+                    placeholder="City"
+                    #city="ngModel"
+                    [(ngModel)]="singUpForm.city"
+                    [ngClass]="{
+                      'form-control': true,
+                      'is-invalid': city.invalid && city.touched
+                    }"
+                    required
+                  />
+                </div>
+                <div class="col">
+                  <input
+                    type="text"
+                    name="state"
+                    placeholder="State"
+                    #state="ngModel"
+                    [(ngModel)]="singUpForm.state"
+                    [ngClass]="{
+                      'form-control': true,
+                      'is-invalid': state.invalid && state.touched
+                    }"
+                    required
+                  />
+                </div>
+                <div class="col">
+                  <input
+                    type="text"
+                    name="zip"
+                    placeholder="zip"
+                    #zip="ngModel"
+                    [(ngModel)]="singUpForm.zip"
+                    [ngClass]="{
+                      'form-control': true,
+                      'is-invalid': zip.invalid && zip.touched
+                    }"
+                    required
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <div class="col-sm-7 offset-sm-3">
+          <button type="submit" class="btn btn-primary" >Sign Up</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+<p>Pristine {{ signUp.pristine }}</p>
+<p>dirty {{ signUp.dirty }}</p>
+<p>touched {{ signUp.touched }}</p>
+<p>untouched {{ signUp.untouched }}</p>
+
+<p>Valid {{ signUp.valid }}</p>
+<p>invalid {{ signUp.invalid }}</p>
+<pre>  {{ signUp.value | json }}</pre>
