@@ -80,7 +80,7 @@
               id="email"
             />
             <span *ngIf="emailMessage" class="invalid-feedback">
-              {{emailMessage}}
+              {{ emailMessage }}
             </span>
           </div>
         </div>
@@ -202,115 +202,143 @@
       </div>
 
       <div [hidden]="!signUpForm.controls.catalog.value" class="row">
-        <fieldset class="form-group col-sm-12">
-          <div class="row">
-            <legend class="col-form-label col-sm-3 pt-0">Address Type</legend>
-            <div class="col-sm-7">
-              <div class="form-check form-check-inline">
-                <input
-                  class="form-check-input"
-                  type="radio"
-                  id="Home"
-                  value="Home"
-                  formControlName="addressType"
-                />
-                <label class="form-check-label" for="Home">
-                  Home
-                </label>
+        <ng-container formArrayName="addresses" *ngIf="addresses.length > 0">
+          <ng-container
+            *ngFor="let address of addresses.controls; let i = index"
+            [formGroupName]="i"
+          >
+            <fieldset class="form-group col-sm-12">
+              <div class="row">
+                <legend class="col-form-label col-sm-3 pt-0">
+                  Address Type
+                </legend>
+                <div class="col-sm-7">
+                  <div class="form-check form-check-inline">
+                    <input
+                      class="form-check-input"
+                      type="radio"
+                      id="Home"
+                      value="Home"
+                      formControlName="addressType"
+                    />
+                    <label class="form-check-label" for="Home">
+                      Home
+                    </label>
+                  </div>
+                  <div class="form-check form-check-inline">
+                    <input
+                      class="form-check-input"
+                      type="radio"
+                      id="Work"
+                      value="Work"
+                      formControlName="addressType"
+                    />
+                    <label class="form-check-label" for="Work">
+                      Work
+                    </label>
+                  </div>
+                  <div class="form-check form-check-inline">
+                    <input
+                      class="form-check-input"
+                      type="radio"
+                      id="Other"
+                      value="Other"
+                      formControlName="addressType"
+                    />
+                    <label class="form-check-label" for="Other">
+                      Other
+                    </label>
+                  </div>
+                </div>
               </div>
-              <div class="form-check form-check-inline">
-                <input
-                  class="form-check-input"
-                  type="radio"
-                  id="Work"
-                  value="Work"
-                  formControlName="addressType"
-                />
-                <label class="form-check-label" for="Work">
-                  Work
-                </label>
-              </div>
-              <div class="form-check form-check-inline">
-                <input
-                  class="form-check-input"
-                  type="radio"
-                  id="Other"
-                  value="Other"
-                  formControlName="addressType"
-                />
-                <label class="form-check-label" for="Other">
-                  Other
-                </label>
+            </fieldset>
+            <div class="form-group col-sm-12">
+              <div class="row">
+                <label
+                  attr.for="{{ 'streetAdd1' + i }}"
+                  class="col-sm-3 col-form-label"
+                  >Street Address 1</label
+                >
+                <div class="col-sm-7">
+                  <input
+                    type="text"
+                    placeholder="Street Address"
+                    formControlName="addressOne"
+                    class="form-control"
+                    id="{{ 'streetAdd1' + i }}"
+                  />
+                </div>
               </div>
             </div>
-          </div>
-        </fieldset>
-        <div class="form-group col-sm-12">
-          <div class="row">
-            <label for="streetAdd1" class="col-sm-3 col-form-label"
-              >Street Address 1</label
-            >
-            <div class="col-sm-7">
-              <input
-                type="text"
-                placeholder="Street Address"
-                formControlName="addressOne"
-                class="form-control"
-                id="streetAdd1"
-              />
-            </div>
-          </div>
-        </div>
 
-        <div class="form-group col-sm-12">
-          <div class="row">
-            <label for="streetAdd2" class="col-sm-3 col-form-label"
-              >Street Address 2</label
-            >
-            <div class="col-sm-7">
-              <input
-                type="text"
-                placeholder="Street address (second line)"
-                formControlName="addressTwo"
-                class="form-control"
-                id="streetAdd2"
-              />
-            </div>
-          </div>
-        </div>
-        <div class="form-group col-sm-12">
-          <div class="row">
-            <label class="col-sm-3 col-form-label">City, State, Zip Code</label>
-            <div class="col-sm-7">
-              <div class="form-row">
-                <div class="col">
+            <div class="form-group col-sm-12">
+              <div class="row">
+                <label
+                  attr.for="{{ 'streetAdd2' + i }}"
+                  class="col-sm-3 col-form-label"
+                  >Street Address 2</label
+                >
+                <div class="col-sm-7">
                   <input
                     type="text"
-                    placeholder="City"
-                    formControlName="city"
+                    placeholder="Street address (second line)"
+                    formControlName="addressTwo"
                     class="form-control"
-                  />
-                </div>
-                <div class="col">
-                  <input
-                    type="text"
-                    placeholder="State"
-                    formControlName="state"
-                    class="form-control"
-                  />
-                </div>
-                <div class="col">
-                  <input
-                    type="text"
-                    placeholder="zip"
-                    formControlName="zip"
-                    class="form-control"
+                    id="{{ 'streetAdd2' + i }}"
                   />
                 </div>
               </div>
             </div>
+            <div class="form-group col-sm-12">
+              <div class="row">
+                <label class="col-sm-3 col-form-label"
+                  >City, State, Zip Code</label
+                >
+                <div class="col-sm-7">
+                  <div class="form-row">
+                    <div class="col">
+                      <input
+                        type="text"
+                        placeholder="City"
+                        formControlName="city"
+                        class="form-control"
+                      />
+                    </div>
+                    <div class="col">
+                      <input
+                        type="text"
+                        placeholder="State"
+                        formControlName="state"
+                        class="form-control"
+                      />
+                    </div>
+                    <div class="col">
+                      <input
+                        type="text"
+                        placeholder="zip"
+                        formControlName="zip"
+                        class="form-control"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </ng-container>
+          <div class="form-group col-sm-12">
+            <div class="row">
+              <div class="col-sm-3">
+                <button
+                  type="submit"
+                  class="btn btn-outline-primary"
+                  (click)="addAddress()"
+                >
+                  Add Addresses
+                </button>
+              </div>
+            </div>
           </div>
-        </div>
+        </ng-container>
       </div>
 
       <div class="form-group row">
@@ -336,6 +364,8 @@
     <p>untouched {{ signUpForm.untouched }}</p>
     <p>Valid {{ signUpForm.valid }}</p>
     <p>invalid {{ signUpForm.invalid }}</p>
+    <p>Street1: {{signUpForm.get('addresses.0.addressOne')?.value}}</p>
+    <p>Street2: {{signUpForm.get('addresses.1.addressOne')?.value}}</p>
   </div>
   <div class="col">
     <pre>  {{ signUpForm.value | json }}</pre>

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators, AbstractControl, ValidatorFn } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, AbstractControl, ValidatorFn, FormArray } from '@angular/forms';
 import { debounceTime } from "rxjs/operators";
 
 const ratingRage = (min: number, max: number): ValidatorFn =>
@@ -27,8 +27,8 @@ const emailMatcher = (control: AbstractControl): { [key: string]: any } | null =
 export class SignUpComponent implements OnInit {
   emailMessage: string;
   private validationMessages = {
-    required: 'Please enter your email address.',
-    email: 'Please enter a valid email address'
+    required: 'Please enter your email addresses.',
+    email: 'Please enter a valid email addresses'
   }
   signUpForm: FormGroup;
   constructor(private fb: FormBuilder) { }
@@ -45,29 +45,36 @@ export class SignUpComponent implements OnInit {
       rating: [null, ratingRage(2, 7)],
       notificationType: 'Email',
       catalog: [false],
-      addressType: 'Home',
-      addressOne: '',
-      addressTwo: '',
-      city: '',
-      state: '',
-      zip: ''
+      addresses: this.fb.array([])
     })
-    const { notificationType, phone } = this.signUpForm.controls;
+
+    const { notificationType, phone, catalog } = this.signUpForm.controls;
     const email = this.signUpForm.get('emailGroup.email');
     email.valueChanges
-    .pipe(
-      debounceTime(1000)
-    ).subscribe(val => this.setMessage(email));
+      .pipe(
+        debounceTime(1000)
+      ).subscribe(val => this.setMessage(email));
 
     notificationType.valueChanges
       .subscribe(val => {
-      if (val === 'Phone') {
-        phone.setValidators(Validators.required);
-      } else {
-        phone.clearValidators();
-      }
-      phone.updateValueAndValidity();
-    })
+        if (val === 'Phone') {
+          phone.setValidators(Validators.required);
+        } else {
+          phone.clearValidators();
+        }
+        phone.updateValueAndValidity();
+      })
+
+    catalog.valueChanges
+      .subscribe(
+        val => {
+          if (val) {
+            this.addresses.push(this.buildAddress())
+          } else {
+            this.addresses.clear()
+          }
+        }
+      )
   }
 
   onSubmit() {
@@ -83,4 +90,22 @@ export class SignUpComponent implements OnInit {
     }
   }
 
+  buildAddress(): FormGroup {
+    return this.fb.group({
+      addressType: 'Home',
+      addressOne: '',
+      addressTwo: '',
+      city: '',
+      state: '',
+      zip: ''
+    })
+  }
+
+  get addresses(): FormArray {
+    return <FormArray>this.signUpForm.get('addresses');
+  }
+
+  addAddress() : void {
+    this.addresses.push(this.buildAddress())
+  }
 }
