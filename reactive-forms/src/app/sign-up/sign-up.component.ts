@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, AbstractControl, ValidatorFn } from '@angular/forms';
+import { debounceTime } from "rxjs/operators";
 
 const ratingRage = (min: number, max: number): ValidatorFn =>
   (c: AbstractControl): { [key: string]: any } | null => {
@@ -24,6 +25,11 @@ const emailMatcher = (control: AbstractControl): { [key: string]: any } | null =
   styleUrls: ['./sign-up.component.scss']
 })
 export class SignUpComponent implements OnInit {
+  emailMessage: string;
+  private validationMessages = {
+    required: 'Please enter your email address.',
+    email: 'Please enter a valid email address'
+  }
   signUpForm: FormGroup;
   constructor(private fb: FormBuilder) { }
 
@@ -47,7 +53,14 @@ export class SignUpComponent implements OnInit {
       zip: ''
     })
     const { notificationType, phone } = this.signUpForm.controls;
-    notificationType.valueChanges.subscribe(val => {
+    const email = this.signUpForm.get('emailGroup.email');
+    email.valueChanges
+    .pipe(
+      debounceTime(1000)
+    ).subscribe(val => this.setMessage(email));
+
+    notificationType.valueChanges
+      .subscribe(val => {
       if (val === 'Phone') {
         phone.setValidators(Validators.required);
       } else {
@@ -59,6 +72,15 @@ export class SignUpComponent implements OnInit {
 
   onSubmit() {
     console.log(this.signUpForm.value, this.signUpForm)
+  }
+
+  setMessage(c: AbstractControl): void {
+    this.emailMessage = '';
+    if ((c.touched || c.dirty) && c.errors) {
+      this.emailMessage = Object.keys(c.errors).map(
+        key => this.validationMessages[key]
+      ).join(' ')
+    }
   }
 
 }
