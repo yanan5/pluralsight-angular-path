@@ -9,7 +9,7 @@ const collectionPath = path.join(__dirname, '../collection.json');
 describe('order-wizard', () => {
   it('works', () => {
     const runner = new SchematicTestRunner('schematics', collectionPath);
-    const tree = runner.runSchematic('order-wizard', {}, Tree.empty());
+    const tree = runner.runSchematic('order-wizard', {name: 'test'}, Tree.empty());
 
     expect(tree.files).toEqual([]);
   });
