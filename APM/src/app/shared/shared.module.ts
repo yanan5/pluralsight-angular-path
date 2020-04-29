@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { StarComponent } from './star/star.component';
 import { ConvertToSpacesPipe } from './pipes/convert-to-spaces.pipe';
 import { CardComponent } from './card/card.component';
@@ -19,7 +19,8 @@ import { CardComponent } from './card/card.component';
     ConvertToSpacesPipe,
     CardComponent,
     CommonModule,
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule
   ]
 })
 export class SharedModule { }

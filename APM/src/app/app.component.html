@@ -1,14 +1,34 @@
 <!--The content below is only a placeholder and can be replaced.-->
 <nav class="navbar navbar-expand navbar-light bg-light">
   <a class="navbar-brand">
-    {{title}}
+    {{ title }}
   </a>
   <ul class="nav nav-pills">
     <li>
-      <a class="nav-link" [routerLink]="['/welcome']" routerLinkActive="router-link-active">Home</a>
+      <a
+        class="nav-link"
+        [routerLink]="['/welcome']"
+        routerLinkActive="router-link-active"
+        >Home</a
+      >
     </li>
     <li>
-      <a class="nav-link" [routerLink]="['/products']" routerLinkActive="router-link-active">Product List</a>
+      <a
+        class="nav-link"
+        [routerLink]="['/products']"
+        routerLinkActive="router-link-active"
+        [routerLinkActiveOptions]="{ exact: true }"
+        >Product List</a
+      >
+    </li>
+    <li>
+      <a
+        class="nav-link"
+        [routerLink]="['/products/0/edit']"
+        routerLinkActive="router-link-active"
+        [routerLinkActiveOptions]="{exact: true}"
+        >Add Product</a
+      >
     </li>
   </ul>
 </nav>

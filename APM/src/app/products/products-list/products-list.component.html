@@ -1,6 +1,6 @@
 <app-card>
   <ng-container card-header>
-    {{ pageTitle }} - {{currentRatingClicked}}
+    {{ pageTitle }} - {{ currentRatingClicked }}
   </ng-container>
   <ng-container card-body>
     <div class="row">
@@ -11,10 +11,15 @@
     </div>
     <div class="row">
       <div class="col-md-6">
-        <h4 class="filter-text">Filtered by: <span>{{filterText}}</span></h4>
+        <h4 class="filter-text">
+          Filtered by: <span>{{ filterText }}</span>
+        </h4>
       </div>
     </div>
-    <div class="table-responsive" *ngIf="filteredProducts && filteredProducts.length">
+    <div
+      class="table-responsive"
+      *ngIf="filteredProducts && filteredProducts.length"
+    >
       <table class="table">
         <thead>
           <tr>
@@ -31,7 +36,10 @@
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let product of filteredProducts" (click)="goToDetails(product.productId)">
+          <tr
+            *ngFor="let product of filteredProducts"
+            (click)="goToDetails(product.productId)"
+          >
             <td>
               <img
                 *ngIf="showImage"
@@ -47,7 +55,20 @@
             <td>{{ product.releaseDate }}</td>
             <td>{{ product.price | currency: "USD" }}</td>
             <td>
-              <app-star [rating]="product.starRating" (notify)="onRatingClicked($event)"></app-star>
+              <app-star
+                [rating]="product.starRating"
+                (notify)="onRatingClicked($event)"
+              ></app-star>
+            </td>
+            <td>
+              <a
+                [routerLink]="[product.productId+'/edit']"
+                routerLinkActive="router-link-active"
+                class="btn btn-outline-secondary"
+                style="width: 80px;"
+              >
+                Edit
+              </a>
             </td>
           </tr>
         </tbody>
