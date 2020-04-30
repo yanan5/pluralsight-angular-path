@@ -14,7 +14,7 @@ import { MyTableComponent } from './my-table/my-table.component';
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
-
+import {CheckOutModule}from './/check-out/check-out.module';
 @NgModule({
   declarations: [
     AppComponent,
@@ -33,7 +33,7 @@ import { MatSortModule } from '@angular/material/sort';
     MatTableModule,
     MatPaginatorModule,
     MatSortModule
-  ],
+  ,CheckOutModule],
   providers: [],
   bootstrap: [AppComponent]
 })
